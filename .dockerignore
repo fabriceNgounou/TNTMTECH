@@ -1,0 +1,44 @@
+# Historique et outils de développement
+.git
+.gitignore
+.gitattributes
+.github
+.idea
+.vscode
+
+# Dépendances : réinstallées proprement dans l'image
+vendor/
+node_modules/
+
+# Secrets locaux — les variables viennent de Railway
+.env
+.env.*
+!.env.railway.example
+
+# Base de données locale
+database/*.sqlite
+database/*.sqlite-journal
+
+# Caches et journaux locaux
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+storage/*.key
+bootstrap/cache/*.php
+.phpunit.result.cache
+.phpunit.cache
+
+# Tests et qualité de code : inutiles en production
+tests/
+phpunit.xml
+
+# Reliquats de la tentative de déploiement Vercel
+api/
+vercel.json
+vercel.env.example
+
+# Divers
+docker-compose.yml
+npm-debug.log
+yarn-error.log

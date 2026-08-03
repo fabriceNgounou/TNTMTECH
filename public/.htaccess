@@ -1,0 +1,27 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Transmet l'en-tête Authorization à PHP
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Active X-Sendfile pour les fichiers existants
+    <IfModule mod_headers.c>
+        RewriteCond %{REQUEST_FILENAME} -f
+        RewriteRule ^ - [E=HTTP_X_SENDFILE_TYPE:X-Sendfile]
+    </IfModule>
+
+    # Supprime le slash final si la cible n'est pas un dossier
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Redirige toutes les autres requêtes vers le contrôleur frontal
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

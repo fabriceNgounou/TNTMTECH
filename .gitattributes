@@ -1,0 +1,18 @@
+* text=auto eol=lf
+
+# Les scripts exécutés dans le conteneur Linux doivent conserver des fins de
+# ligne LF, sinon le shebang casse au démarrage ("exec format error").
+*.sh text eol=lf
+docker/entrypoint.sh text eol=lf
+artisan text eol=lf
+
+# Fichiers binaires
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.sqlite binary
