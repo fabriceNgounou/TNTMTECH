@@ -40,7 +40,13 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY docker/php.ini "$PHP_INI_DIR/conf.d/zz-tntmtech.ini"
 
 # --- Configuration Apache ----------------------------------------------------
-RUN a2enmod rewrite headers expires remoteip \
+# mod_php impose le MPM prefork. Selon la révision de l'image de base, un second
+# MPM peut être actif : Apache refuse alors de démarrer avec
+# « AH00534: More than one MPM loaded ». On force donc un MPM unique.
+RUN { a2dismod mpm_event || true; } \
+    && { a2dismod mpm_worker || true; } \
+    && a2enmod mpm_prefork \
+    && a2enmod rewrite headers expires remoteip \
     && a2dissite 000-default
 COPY docker/vhost.conf /etc/apache2/sites-available/tntmtech.conf
 COPY docker/ports.conf /etc/apache2/ports.conf
@@ -83,6 +89,10 @@ RUN chmod +x /usr/local/bin/entrypoint
 
 ENV PORT=8080
 EXPOSE 8080
+
+# Valide la configuration Apache dès la construction : une erreur de config
+# fait échouer le build au lieu de provoquer un redémarrage en boucle.
+RUN apache2ctl -t && apache2ctl -M | grep -c mpm_ | grep -qx 1
 
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
 CMD ["apache2-foreground"]
