@@ -48,7 +48,12 @@ if [ "${RUN_SEEDERS}" = "true" ]; then
     php artisan db:seed --force --no-interaction
 fi
 
-# --- Lien symbolique de stockage ---------------------------------------------
+# --- Stockage des fichiers ---------------------------------------------------
+# Si un volume Railway est monté sur storage/app, il arrive vide : on recrée
+# l'arborescence attendue par Laravel (CV de candidature, fichiers publics).
+mkdir -p /var/www/html/storage/app/private/applications \
+         /var/www/html/storage/app/public
+
 if [ ! -e /var/www/html/public/storage ]; then
     php artisan storage:link --no-interaction || true
 fi

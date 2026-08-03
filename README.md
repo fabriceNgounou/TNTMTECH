@@ -143,10 +143,27 @@ Mettez `APP_URL` à jour ensuite.
 **Le disque est éphémère.** À chaque déploiement, le conteneur repart d'une
 image neuve. Les sessions, le cache et les files d'attente sont donc stockés en
 base (`SESSION_DRIVER=database`, `CACHE_STORE=database`,
-`QUEUE_CONNECTION=database`). Les fichiers téléversés dans `storage/app/public`
-seraient perdus : si le site accepte des envois de fichiers durables (CV de
-candidature, par exemple), ajoutez un volume Railway monté sur
-`/var/www/html/storage/app/public`, ou un stockage objet de type S3.
+`QUEUE_CONNECTION=database`).
+
+**Les CV de candidature exigent un volume.** Le formulaire `/carrieres`
+enregistre chaque CV sur le disque (`storage/app/private/applications`). Sans
+volume, ces fichiers disparaissent au déploiement suivant : les candidatures
+resteraient visibles en base, mais les CV seraient introuvables.
+
+Créez donc un volume avant d'ouvrir le site au public :
+
+**Settings** → **Volumes** → **New Volume**, avec pour point de montage :
+
+```
+/var/www/html/storage/app
+```
+
+L'entrypoint recrée l'arborescence attendue au premier démarrage. Un volume
+Railway est attaché à un seul conteneur : gardez `numReplicas` à `1`.
+
+Pour une montée en charge ultérieure, remplacez le volume par un stockage objet
+compatible S3 et basculez le disque `local` vers `s3` dans
+`config/filesystems.php`.
 
 **Le mot de passe administrateur par défaut est public.** Il figure dans ce
 dépôt. Définissez `ADMIN_PASSWORD` avant le premier seeding.
