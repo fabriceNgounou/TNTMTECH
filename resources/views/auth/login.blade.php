@@ -1,0 +1,3 @@
+@extends('layouts.app')
+@section('title', 'Connexion — TNTMTECH')
+@section('content')<section class="login-page"><form class="form-panel login-panel" method="post" action="{{ route('login.store') }}">@csrf<p class="eyebrow">Accès réservé</p><h1>Administration</h1><p>Connectez-vous avec votre compte professionnel TNTMTECH.</p><label>Adresse email<input type="email" name="email" value="{{ old('email') }}" required autofocus></label><label>Mot de passe<input type="password" name="password" required></label><label class="check"><input type="checkbox" name="remember"><span>Rester connecté</span></label><button class="btn btn-primary btn-block">Se connecter</button></form></section>@endsection

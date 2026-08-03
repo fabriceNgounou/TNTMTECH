@@ -1,0 +1,9 @@
+{
+  "platform": "docker",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "deploy": {
+    "command": "php -r \"file_exists('.env') || copy('.env.example', '.env');\" && php artisan key:generate --force && php artisan storage:link --quiet && php artisan optimize && php artisan migrate --force"
+  }
+}
