@@ -43,8 +43,7 @@ COPY docker/php.ini "$PHP_INI_DIR/conf.d/zz-tntmtech.ini"
 # mod_php impose le MPM prefork. Selon la révision de l'image de base, un second
 # MPM peut être actif : Apache refuse alors de démarrer avec
 # « AH00534: More than one MPM loaded ». On force donc un MPM unique.
-RUN { a2dismod mpm_event || true; } \
-    && { a2dismod mpm_worker || true; } \
+RUN rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf \
     && a2enmod mpm_prefork \
     && a2enmod rewrite headers expires remoteip \
     && a2dissite 000-default

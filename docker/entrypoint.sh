@@ -70,5 +70,20 @@ php artisan view:cache
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R ug+rwX storage bootstrap/cache
 
+# --- Un seul MPM Apache ------------------------------------------------------
+# mod_php impose mpm_prefork. Si la révision de l'image de base en active un
+# second, Apache refuse de démarrer (« More than one MPM loaded ») et le
+# conteneur redémarre en boucle. On normalise donc avant de lui passer la main.
+mpm_actifs=$(find /etc/apache2/mods-enabled -name 'mpm_*.load' 2>/dev/null | sort || true)
+nb_mpm=$(printf '%s' "${mpm_actifs}" | grep -c . || true)
+
+if [ "${nb_mpm:-0}" -ne 1 ]; then
+    echo "[TNTMTECH] MPM détectés (${nb_mpm}) : $(printf '%s' "${mpm_actifs}" | tr '\n' ' ')"
+    rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf
+    ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load
+    ln -sf /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+    echo "[TNTMTECH] Configuration corrigée : mpm_prefork uniquement."
+fi
+
 echo "[TNTMTECH] Application prête, passage à Apache."
 exec "$@"
