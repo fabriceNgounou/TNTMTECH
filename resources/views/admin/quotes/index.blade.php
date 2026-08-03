@@ -1,4 +1,0 @@
-@extends('layouts.admin')
-@section('heading','Demandes de devis')
-@section('eyebrow','Prospects et projets')
-@section('content')<section class="admin-panel"><div class="table-wrap"><table><thead><tr><th>Référence</th><th>Contact</th><th>Service</th><th>Ville</th><th>Budget</th><th>Statut</th><th>Reçue</th></tr></thead><tbody>@forelse($quotes as $quote)<tr><td><a href="{{ route('admin.quotes.show',$quote) }}">{{ $quote->reference }}</a></td><td>{{ $quote->name }}<small>{{ $quote->company }}</small></td><td>{{ $quote->service }}</td><td>{{ $quote->city }}</td><td>{{ $quote->budget ?: 'Non défini' }}</td><td><span class="status">{{ $quote->status }}</span></td><td>{{ $quote->created_at->format('d/m/Y') }}</td></tr>@empty<tr><td colspan="7">Aucune demande reçue.</td></tr>@endforelse</tbody></table></div>{{ $quotes->links() }}</section>@endsection

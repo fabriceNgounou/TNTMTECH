@@ -1,7 +1,0 @@
-@extends('layouts.app')
-@section('title', 'À propos de TNTMTECH')
-@section('content')
-<section class="page-head page-head-image"><div class="container"><p class="eyebrow light">Telecommunications & Mobiles Technology</p><h1>La technologie utile, proche de vous.</h1><p>TNTMTECH accompagne particuliers, PME et institutions depuis Douala et Yaoundé, avec une direction en France.</p></div></section>
-<section class="section container two-columns"><div><p class="eyebrow">Notre mission</p><h2>Rendre les choix technologiques plus simples et plus durables.</h2></div><div><p class="lead">Nous réunissons l’expertise technique, les méthodes de projet et la formation pour aider chaque client à exploiter pleinement ses outils numériques.</p><p>Notre approche commence par le besoin réel, se poursuit par une recommandation compréhensible et se termine par un transfert de compétences et un suivi local.</p></div></section>
-<section class="process-band"><div class="container"><p class="eyebrow">Nos engagements</p><div class="value-points"><article><strong>01</strong><h3>Clarté</h3><p>Des recommandations, livrables et conditions expliqués.</p></article><article><strong>02</strong><h3>Fiabilité</h3><p>Des interventions documentées et conformes au périmètre convenu.</p></article><article><strong>03</strong><h3>Proximité</h3><p>Deux équipes locales à votre écoute.</p></article><article><strong>04</strong><h3>Transmission</h3><p>Nous vous rendons autonome sur vos solutions.</p></article></div></div></section>
-@endsection

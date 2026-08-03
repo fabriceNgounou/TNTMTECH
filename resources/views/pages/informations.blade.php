@@ -1,6 +1,0 @@
-@extends('layouts.app')
-@section('title','Informations — TNTMTECH')
-@section('content')
-<section class="page-head"><div class="container"><p class="eyebrow">Informations</p><h1>Tout ce qu’il faut savoir avant de nous confier votre projet.</h1><p>TNTMTECH fournit exclusivement des prestations de services informatiques, sur devis et selon le périmètre convenu avec chaque client.</p></div></section>
-<section class="section container"><div class="value-points"><article><strong>01</strong><h3>Périmètre clair</h3><p>Chaque intervention est cadrée selon vos objectifs, contraintes, délais et livrables attendus.</p></article><article><strong>02</strong><h3>Proposition personnalisée</h3><p>Les conditions et coûts sont précisés dans un devis avant le démarrage de la mission.</p></article><article><strong>03</strong><h3>Confidentialité</h3><p>Les informations partagées sont utilisées uniquement pour traiter votre demande et réaliser la prestation.</p><a class="text-link" href="{{ route('page','confidentialite') }}">Lire notre politique →</a></article><article><strong>04</strong><h3>Contact direct</h3><p>Nos équipes de Douala, Yaoundé et France répondent à vos questions.</p><a class="text-link" href="{{ route('contact') }}">Nous contacter →</a></article></div></section>
-@endsection

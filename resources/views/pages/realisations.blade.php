@@ -1,2 +1,0 @@
-@extends('layouts.app')
-@section('content')<section class="page-head"><div class="container"><p class="eyebrow">Réalisations</p><h1>Des solutions déployées sur le terrain.</h1><p>Les études de cas validées par nos clients seront publiées ici prochainement.</p></div></section><section class="section container"><div class="empty-state"><h2>Références en préparation</h2><p>Nous privilégions des présentations factuelles, publiées avec l’autorisation de chaque client.</p><a class="btn btn-primary" href="{{ route('quote') }}">Présenter votre projet</a></div></section>@endsection
